@@ -6,6 +6,7 @@ app.use(cors());
 app.use(express.json());
 
 const SECRET_KEY = process.env.SECRET_KEY;
+const PROCESSING_CHANNEL_ID = process.env.PROCESSING_CHANNEL_ID;
 
 app.post('/create-payment-session', async (req, res) => {
   const { amount, currency, customerName, customerEmail, items, billingCountry } = req.body;
@@ -20,7 +21,7 @@ app.post('/create-payment-session', async (req, res) => {
       body: JSON.stringify({
         amount,
         currency,
-        reference: 'ORD-' + Date.now(),
+        reference: 'ORD-' + Date.now(), processing_channel_id: PROCESSING_CHANNEL_ID,
         billing: { address: { country: billingCountry || 'DE' } },
         customer: { name: customerName, email: customerEmail },
         items,
