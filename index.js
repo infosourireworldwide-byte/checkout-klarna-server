@@ -36,4 +36,9 @@ app.post('/create-payment-session', async (req, res) => {
   }
 });
 
+app.post('/webhook', (req, res) => {
+  const event = req.body;
+  console.log('Webhook received:', event.type);
+  res.status(200).send('OK');
+});
 app.listen(3000, () => console.log('Server running'));
